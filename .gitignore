@@ -3,3 +3,5 @@
 /Projects/*.suo
 /Projects/*.exe
 /Projects/windows
+/Projects/*.opensdf
+/Projects/*.sdf

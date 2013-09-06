@@ -1,6 +1,6 @@
 -- A test application for Mylly GUI C# wrapper
 
-project "MGUI CSharp Test"
+project "MGUI-CSharp-Test"
 	kind "WindowedApp"
 	language "C#"
 	files { "**.cs", "**.resx", "**.settings", "**.config", "premake4.lua" }

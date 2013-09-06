@@ -1,6 +1,6 @@
 -- Mylly GUI C# wrapper
 
-project "MGUI CSharp"
+project "MGUI-CSharp"
 	kind "SharedLib"
 	language "C#"
 	files { "**.cs", "premake4.lua" }
