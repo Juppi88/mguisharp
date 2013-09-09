@@ -30,14 +30,15 @@
 		{
 			this.SuspendLayout();
 			// 
-			// Form1
+			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(445, 452);
 			this.Name = "MainWindow";
-			this.Text = "MainWindow";
+			this.Text = "Mylly GUI Test";
 			this.Load += new System.EventHandler(this.MainWindow_Load);
+			this.Resize += new System.EventHandler(this.MainWindow_Resize);
 			this.ResumeLayout(false);
 
 		}

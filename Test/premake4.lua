@@ -13,7 +13,7 @@ project "MGUI-CSharp-Test"
 		"System.Data",
 		"System.Drawing",
 		"System.Windows.Forms",
-		"MGUI CSharp"
+		"MGUI-CSharp"
 	}
 
 	vpaths {

@@ -8,11 +8,14 @@ namespace MGUI
 {
 	public static class MyllyGUI
 	{
-		public static void Initialize( IntPtr wndHandle, IRendererHandle renderer )
+		public static void Initialize( IntPtr wndHandle, ref IRendererHandle renderer )
 		{
-			API.mgui_initialize( wndHandle, 0 );
+			API.mgui_initialize( wndHandle, (uint)MGUI_PARAMETERS.HOOK_INPUT | (uint)MGUI_PARAMETERS.USE_DRAW_EVENT );
 			API.mgui_set_renderer( ref renderer );
 			API.mgui_set_skin( null );
+
+			// Create a Null element which can be used as a parent
+			Element.Null = new Element();
 		}
 
 		public static void Shutdown()
@@ -23,6 +26,11 @@ namespace MGUI
 		public static void Process()
 		{
 			API.mgui_process();
+		}
+
+		public static void Redraw()
+		{
+			API.mgui_force_redraw();
 		}
 	}
 }

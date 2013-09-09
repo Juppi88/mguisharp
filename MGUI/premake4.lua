@@ -9,6 +9,7 @@ project "MGUI-CSharp"
 
 	vpaths {
 			["Elements"] = { "../MGUI/Elements/**" },
+			["Internal"] = { "../MGUI/Internal/**" },
 			[""] = { "../MGUI/*.cs", "../MGUI/premake4.lua" } }
 
 	configuration "Debug"

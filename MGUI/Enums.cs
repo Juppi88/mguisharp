@@ -6,7 +6,26 @@ using System.Threading.Tasks;
 
 namespace MGUI
 {
-	enum ELEMENT
+	public enum MGUI_PARAMETERS
+	{
+		NO_PARAMS		= 0x0,	/* Don't use any special parameters */
+		USE_DRAW_EVENT	= 0x1,	/* MGUI will refresh only when the user calls mgui_force_redraw */
+		PROCESS_INPUT	= 0x2,	/* Process input within the GUI library without external hooks */
+		HOOK_INPUT		= 0x4,	/* Hook window messages and process input within the GUI library */
+	};
+
+	public enum MGUI_ALIGNMENT
+	{
+		ALIGN_LEFT		= 1 << 0,
+		ALIGN_RIGHT		= 1 << 1,
+		ALIGN_TOP		= 1 << 2,
+		ALIGN_BOTTOM	= 1 << 3,
+		ALIGN_CENTERV	= 1 << 4,
+		ALIGN_CENTERH	= 1 << 5,
+		ALIGN_CENTER	= (ALIGN_CENTERV|ALIGN_CENTERH),
+	};
+
+	public enum ELEMENT
 	{
 		FLAG_NONE				= 0,		/* All flags disabled */
 		FLAG_VISIBLE			= 1 << 0,	/* This element is visible and can be processed */
@@ -35,7 +54,7 @@ namespace MGUI
 		FLAG_MEMO_TOPBOTTOM		= 1 << 20,	/* Memobox order is top to bottom */
 	};
 
-	enum FONT
+	public enum FONT
 	{
 		FFLAG_NONE		= 0,		/* All flags disabled */
 		FFLAG_BOLD		= 1 << 0,	/* Bold font */

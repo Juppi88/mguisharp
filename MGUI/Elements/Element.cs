@@ -9,6 +9,12 @@ namespace MGUI
 {
     public class Element
     {
+		public Element() { elementHandle = IntPtr.Zero; }
+
+		// --------------------------------------------------
+		// Position and size
+		// --------------------------------------------------
+
 		public Vector2 Pos
 		{
 			get { Vector2 pos; API.mgui_get_pos( elementHandle, out pos ); return pos; }
@@ -33,11 +39,133 @@ namespace MGUI
 			set { API.mgui_set_abs_size( elementHandle, ref value ); }
 		}
 
-		public IntPtr ApiHandle
+		// --------------------------------------------------
+		// Colour
+		// --------------------------------------------------
+
+		public Colour Colour
+		{
+			get { Colour col; API.mgui_get_colour( elementHandle, out col ); return col; }
+			set { API.mgui_set_colour( elementHandle, ref value ); }
+		}
+
+		public Colour TextColour
+		{
+			get { Colour col; API.mgui_get_text_colour( elementHandle, out col ); return col; }
+			set { API.mgui_set_text_colour( elementHandle, ref value ); }
+		}
+
+		public byte Alpha
+		{
+			get { return API.mgui_get_alpha( elementHandle ); }
+			set { API.mgui_set_alpha( elementHandle, value ); }
+		}
+
+		// --------------------------------------------------
+		// Text and font
+		// --------------------------------------------------
+
+		public string Text
+		{
+			get { return API.mgui_get_text( elementHandle ); }
+			set { API.mgui_set_text_s( elementHandle, value ); }
+		}
+
+		public uint TextLength
+		{
+			get { return API.mgui_get_text_len( elementHandle ); }
+		}
+
+		public VectorScreen TextSize
+		{
+			get { VectorScreen size; API.mgui_get_text_size( elementHandle, out size ); return size; }
+		}
+
+		public uint Alignment
+		{
+			get { return API.mgui_get_alignment( elementHandle ); }
+			set { API.mgui_set_alignment( elementHandle, value ); }
+		}
+
+		public void GetPadding( out byte top, out byte bottom, out byte left, out byte right )
+		{
+			API.mgui_get_text_padding( elementHandle, out top, out bottom, out left, out right );
+		}
+
+		public void SetPadding( byte top, byte bottom, byte left, byte right )
+		{
+			API.mgui_set_text_padding( elementHandle, top, bottom, left, right );
+		}
+
+		public string FontName
+		{
+			get { return API.mgui_get_font_name( elementHandle ); }
+			set { API.mgui_set_font_name( elementHandle, value ); }
+		}
+
+		public byte FontSize
+		{
+			get { return API.mgui_get_font_size( elementHandle ); }
+			set { API.mgui_set_font_size( elementHandle, value ); }
+		}
+
+		public byte FontFlags
+		{
+			get { return API.mgui_get_font_flags( elementHandle ); }
+			set { API.mgui_set_font_flags( elementHandle, value ); }
+		}
+
+		public void SetFont( string fontName, byte fontSize, byte fontFlags, byte charset = 0 )
+		{
+			API.mgui_set_font( elementHandle, fontName, fontSize, fontFlags, charset );
+		}
+
+		// --------------------------------------------------
+		// Flags and special properties
+		// --------------------------------------------------
+
+		public uint Flags
+		{
+			get { return API.mgui_get_flags( elementHandle ); }
+		}
+
+		public void AddFlags( ELEMENT flags )
+		{
+			API.mgui_add_flags( elementHandle, (uint)flags );
+		}
+
+		public void RemoveFlags( ELEMENT flags )
+		{
+			API.mgui_remove_flags( elementHandle, (uint)flags );
+		}
+
+		// --------------------------------------------------
+		// Events
+		// --------------------------------------------------
+
+		public event CursorEventHandler OnMouseEnter;
+		public event CursorEventHandler OnMouseLeave;
+		public event CursorEventHandler OnMouseClick;
+		public event CursorEventHandler OnMouseRelease;
+		public event CursorEventHandler OnDrag;
+		public event EventHandler OnFocusEnter;
+		public event EventHandler OnMouseExit;
+		public event EventHandler OnInputTextChange;
+		public event EventHandler OnInputTextReturn;
+
+		// --------------------------------------------------
+		// Internal
+		// --------------------------------------------------
+
+		public IntPtr Handle
 		{
 			get { return elementHandle; }
 		}
 
+		// Handle to the internal MGUI element struct
 		protected IntPtr elementHandle;
+
+		// A null element (can be used as a parent)
+		public static Element Null;
     }
 }

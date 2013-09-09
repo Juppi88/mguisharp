@@ -4,8 +4,8 @@ solution ( "MGUI CSharp " .. string.upper( _ACTION ) )
 	configurations { "Debug", "Release" }
 	flags { "ExtraWarnings" }
 	targetdir ( "../Builds/Lib/" .. os.get() .. "/" .. _ACTION )
-	--libdirs { "../Builds/Lib/" }
 	includedirs { "../Libraries", "../Libraries/Types" }
+	defines { "_MYLLY_SHARED_LIB" }
 	
 	configuration "Release"
 		defines { "NDEBUG" }

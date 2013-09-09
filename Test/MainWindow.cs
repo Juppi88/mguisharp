@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MGUI;
+using MGUI.Math;
 
 namespace TestApp
 {
@@ -17,8 +18,15 @@ namespace TestApp
 		{
 			InitializeComponent();
 
-			Renderer.Initialize( this, Width, Height );
-			MyllyGUI.Initialize( this.Handle, Renderer.Handle );
+			// Yeah, this really is against how C# apps should be coded but for now it's the only way to handle the GUI anims.
+			processTimer = new Timer();
+			processTimer.Interval = 50;
+			processTimer.Tick += new EventHandler( Process );
+			processTimer.Enabled = true;
+			processTimer.Start();
+
+			IRendererHandle renderer = Renderer.Initialize( this, Width, Height );
+			MyllyGUI.Initialize( this.Handle, ref renderer );
 		}
 
 		~MainWindow()
@@ -27,11 +35,86 @@ namespace TestApp
 			Renderer.Shutdown();
 		}
 
-		private void MainWindow_Load( object sender, EventArgs e )
+		private Timer processTimer;
+		private void Process( object sender, EventArgs e )
 		{
-			testLabel = new MGUI.Label();
+			// TODO: Get rid of this and the timer !!!
+			MyllyGUI.Redraw();
+			MyllyGUI.Process();
 		}
 
-		private MGUI.Label testLabel;
+		private void MainWindow_Resize( object sender, System.EventArgs e )
+		{
+			ResizeWindow();
+		}
+
+		protected override void OnPaint( PaintEventArgs e )
+		{
+			base.OnPaint( e );
+			MyllyGUI.Redraw();
+		}
+
+		private void ResizeWindow()
+		{
+			short w = (short)this.Width, h = (short)this.Height;
+
+			button.AbsolutePos = new VectorScreen( (short)( w - 71 ), (short)( h - 60 ) );
+			button.AbsoluteSize = new VectorScreen( 50, 22 );
+
+			editbox.AbsolutePos = new VectorScreen( 12, (short)( h - 60 ) );
+			editbox.AbsoluteSize = new VectorScreen( (short)( w - 92 ), 22 );
+
+			memobox.AbsolutePos = new VectorScreen( 12, 10 );
+			memobox.AbsoluteSize = new VectorScreen( (short)( w - 30 ), (short)( h - 78 ) );
+		}
+
+		private void Button_Submit( object sender, CursorEventArgs args )
+		{
+			// Do stuff
+		}
+
+		private void Editbox_Return( object sender, EventArgs args )
+		{
+			// Do more stuff
+		}
+
+		private void MainWindow_Load( object sender, EventArgs e )
+		{
+			VectorScreen vec = new VectorScreen();
+	
+			canvas = new MGUI.Canvas( Element.Null );
+			canvas.AddFlags( ELEMENT.FLAG_BACKGROUND );
+			canvas.Colour = colWindow;
+
+			button = new MGUI.Button( canvas, vec, vec, ELEMENT.FLAG_BORDER, colWindow, "Submit" );
+			button.TextColour = colText;
+			button.FontName = "Verdana";
+			button.OnMouseRelease += new CursorEventHandler( Button_Submit );
+
+			editbox = new MGUI.Editbox( canvas, vec, vec, 0, colTextBG, "" );
+			editbox.TextColour = colText;
+			editbox.FontName = "Lucida Console";
+			editbox.OnInputTextReturn += new EventHandler( Editbox_Return );
+
+			memobox = new MGUI.Memobox( canvas, vec, vec, ELEMENT.FLAG_MEMO_TOPBOTTOM, colTextBG );
+			memobox.TextColour = colText;
+			memobox.SetFont( "Lucida Console", 10, 0 );
+			memobox.AddFlags( ELEMENT.FLAG_TEXT_TAGS );
+			memobox.SetPadding( 10, 4, 10, 10 );
+
+			ResizeWindow(); 
+
+			memobox.AddLine( "MGUI Console Test loaded." );
+			memobox.AddColouredLine( "Hello from C#!", new Colour( 255, 0, 255 ) );
+		}
+
+		private MGUI.Canvas canvas;
+		private MGUI.Button button;
+		private MGUI.Editbox editbox;
+		private MGUI.Memobox memobox;
+
+		private static MGUI.Math.Colour colWindow = new MGUI.Math.Colour( 75, 75, 75 );
+		private static MGUI.Math.Colour colText = new MGUI.Math.Colour( 255, 255, 255 );
+		private static MGUI.Math.Colour colTextBG = new MGUI.Math.Colour( 20, 20, 20 );
 	}
 }

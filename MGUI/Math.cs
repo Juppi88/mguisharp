@@ -44,7 +44,6 @@ namespace MGUI
 		[StructLayout( LayoutKind.Explicit )]
 		public struct Matrix4
 		{
-
 			[FieldOffset(0)]  public Vector3 rot1;
 			[FieldOffset(12)] public Vector3 rot2;
 			[FieldOffset(24)] public Vector3 rot3;

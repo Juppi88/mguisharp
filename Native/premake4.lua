@@ -3,7 +3,7 @@
 project "MGUI-CSharp-Native"
 	kind "SharedLib"
 	language "C"
-	files { "*.c", "*.h", "premake4.lua" }
+	files { "*.c", "*.h", "premake4.lua", "mgui.def" }
 	location ( "../Projects/" .. os.get() .. "/" .. _ACTION )
 	targetname "mgui"
 	targetextension ".dll"
@@ -21,6 +21,8 @@ project "MGUI-CSharp-Native"
 			[""] = { "../Native/*" }
 		}
 
+	linkoptions { "/DEF:../../../Native/mgui.def" }
+	
 	configuration "Debug"
 		targetdir "../Builds/Debug"
 

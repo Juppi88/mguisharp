@@ -9,19 +9,14 @@ namespace MGUI
 {
 	public class Label : Element
 	{
-		public Label()
+		public Label( Element parentElement )
 		{
-			elementHandle = API.mgui_create_label( null );
+			elementHandle = API.mgui_create_label( parentElement.Handle );
 		}
 
-		public Label( ref Element parentElement )
+		public Label( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMENT flags, Colour col, string text )
 		{
-			elementHandle = API.mgui_create_label( parentElement.ApiHandle );
-		}
-
-		public Label( ref Element parentElement, ref VectorScreen absPos, ref VectorScreen absSize, uint flags, ref Colour col, string text )
-		{
-			elementHandle = API.mgui_create_label_ex( parentElement.ApiHandle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, flags, col.AsHex(), text );
+			elementHandle = API.mgui_create_label_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
 		}
 
 		public void MakeTextFit()
