@@ -69,6 +69,7 @@ EXPORTS
 	mgui_get_alpha
 	mgui_set_alpha
 	mgui_get_text
+	mgui_get_text_buffer
 	mgui_get_text_len
 	mgui_set_text
 	mgui_set_text_s

@@ -39,6 +39,31 @@ namespace MGUI
 		public static extern void mgui_set_focus( IntPtr element );
 
 		// --------------------------------------------------
+		// Child/parent relations
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_add_child( IntPtr parent, IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_remove_child( IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_move_forward( IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_move_backward( IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_send_to_top( IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_send_to_bottom( IntPtr child );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern bool mgui_is_child_of( IntPtr parent, IntPtr child );
+
+		// --------------------------------------------------
 		// Element constructors
 		// --------------------------------------------------
 
@@ -100,29 +125,12 @@ namespace MGUI
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_abs_size( IntPtr element, ref Math.VectorScreen size );
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_get_pos_f( IntPtr element, out float x, out float y );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_get_size_f( IntPtr element, out float w, out float h );
+		public static extern float mgui_get_z_depth( IntPtr element );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_pos_f( IntPtr element, float x, float y );
-
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_size_f( IntPtr element, float w, float h );
-
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_get_abs_pos_i( IntPtr element, out short x, out short y );
-
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_get_abs_size_i( IntPtr element, out ushort w, out ushort h );
-
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_abs_pos_i( IntPtr element, short x, short y );
-
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_abs_size_i( IntPtr element, ushort w, ushort h );
+		public static extern void mgui_set_z_depth( IntPtr element, float depth );
 
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -204,6 +212,25 @@ namespace MGUI
 		public static extern void mgui_set_event_handler( IntPtr element, Element.GuiEventHandler handler, IntPtr data );
 
 		// --------------------------------------------------
+		// Editbox functions
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern bool mgui_editbox_has_text_selected( IntPtr editbox );
+
+		//[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
+		//public static extern void mgui_editbox_get_selection( IntPtr editbox, string buf, uint buflen );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_editbox_select_text( IntPtr editbox, uint begin, uint end );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_editbox_get_cursor_pos( IntPtr editbox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_editbox_set_cursor_pos( IntPtr editbox, uint pos );
+
+		// --------------------------------------------------
 		// Label functions
 		// --------------------------------------------------
 
@@ -219,5 +246,35 @@ namespace MGUI
 
 		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_memobox_add_line_col_s( IntPtr memobox, string text, ref Math.Colour col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_memobox_clear( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_memobox_get_display_pos( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_memobox_set_display_pos( IntPtr memobox, float pos );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_memobox_get_lines( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_memobox_set_lines( IntPtr memobox, uint lines );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_memobox_get_num_lines( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_memobox_get_history( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_memobox_set_history( IntPtr memobox, uint lines );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_memobox_get_margin( IntPtr memobox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_memobox_set_margin( IntPtr memobox, uint margin );
 	}
 }

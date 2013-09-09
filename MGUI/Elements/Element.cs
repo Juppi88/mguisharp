@@ -21,6 +21,47 @@ namespace MGUI
 		}
 
 		// --------------------------------------------------
+		// Parent/children relations
+		// --------------------------------------------------
+
+		public void AddChild( Element child )
+		{
+			if ( child != Element.Null )
+				API.mgui_add_child( elementHandle, child.Handle );
+		}
+
+		public void RemoveFromParent()
+		{
+			API.mgui_remove_child( elementHandle );
+		}
+
+		public void MoveForward()
+		{
+			API.mgui_move_forward( elementHandle );
+		}
+
+		public void MoveBackward()
+		{
+			API.mgui_move_backward( elementHandle );
+		}
+
+		public void SendToTop()
+		{
+			API.mgui_send_to_top( elementHandle );
+		}
+
+		public void SendToBottom()
+		{
+			API.mgui_send_to_bottom( elementHandle );
+		}
+
+		public bool IsChildOf( Element parent )
+		{
+			if ( parent == Element.Null ) return false;
+			return API.mgui_is_child_of( parent.Handle, elementHandle );
+		}
+
+		// --------------------------------------------------
 		// Element focus
 		// --------------------------------------------------
 
@@ -66,6 +107,16 @@ namespace MGUI
 		{
 			get { VectorScreen size; API.mgui_get_abs_size( elementHandle, out size ); return size; }
 			set { API.mgui_set_abs_size( elementHandle, ref value ); }
+		}
+
+		// --------------------------------------------------
+		// 3D/depth properties
+		// --------------------------------------------------
+
+		public float Depth
+		{
+			get { return API.mgui_get_z_depth( elementHandle ); }
+			set { API.mgui_set_z_depth( elementHandle, value ); }
 		}
 
 		// --------------------------------------------------

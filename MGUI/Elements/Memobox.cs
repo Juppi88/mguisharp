@@ -28,5 +28,33 @@ namespace MGUI
 		{
 			API.mgui_memobox_add_line_col_s( Handle, text, ref col );
 		}
+
+		public void Clear()
+		{
+			API.mgui_memobox_clear( Handle );
+		}
+
+		public float DisplayPos
+		{
+			get { return API.mgui_memobox_get_display_pos( Handle ); }
+			set { API.mgui_memobox_set_display_pos( Handle, value ); }
+		}
+
+		public uint Lines
+		{
+			get { return API.mgui_memobox_get_num_lines( Handle ); }
+		}
+
+		public uint VisibleLines
+		{
+			get { return API.mgui_memobox_get_lines( Handle ); }
+			set { API.mgui_memobox_set_lines( Handle, value ); }
+		}
+
+		public uint HistoryLines
+		{
+			get { return API.mgui_memobox_get_history( Handle ); }
+			set { API.mgui_memobox_set_history( Handle, value ); }
+		}
 	}
 }
