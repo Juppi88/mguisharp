@@ -95,6 +95,12 @@ namespace MGUI
 		public static extern IntPtr mgui_create_memobox_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_window( IntPtr parent );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_window_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col, string text );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_element_destroy( IntPtr element );
 
 		// --------------------------------------------------
@@ -276,5 +282,18 @@ namespace MGUI
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_memobox_set_margin( IntPtr memobox, uint margin );
+
+		// --------------------------------------------------
+		// Window functions
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_window_get_title_col( IntPtr window, out Math.Colour col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_window_set_title_col( IntPtr window, ref Math.Colour col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_window_get_drag_offset( IntPtr window, out Math.VectorScreen pos );
 	}
 }

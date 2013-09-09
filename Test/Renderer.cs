@@ -182,7 +182,7 @@ namespace TestApp
 			format.Alignment = StringAlignment.Near;
 			format.LineAlignment = StringAlignment.Near;
 
-			y -= 1;
+			y -= 2;
 			RectangleF r = new RectangleF( (float)x, (float)y, 1000, 1000 );
 
 			if ( ( flags & (uint)TEXTFLAG.SHADOW ) != 0 )

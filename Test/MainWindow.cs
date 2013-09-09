@@ -17,14 +17,7 @@ namespace TestApp
 		public MainWindow()
 		{
 			InitializeComponent();
-
-			// Yeah, this really is against how C# apps should be coded but for now it's the only way to handle the GUI anims.
-			processTimer = new Timer();
-			processTimer.Interval = 50;
-			processTimer.Tick += new EventHandler( Process );
-			processTimer.Enabled = true;
-			processTimer.Start();
-
+			
 			IRenderer renderer = Renderer.Initialize( this, Width, Height );
 			MyllyGUI.Initialize( this.Handle, ref renderer );
 		}
@@ -33,14 +26,6 @@ namespace TestApp
 		{
 			MyllyGUI.Shutdown();
 			Renderer.Shutdown();
-		}
-
-		private Timer processTimer;
-		private void Process( object sender, EventArgs e )
-		{
-			// TODO: Get rid of this and the timer !!!
-			MyllyGUI.Redraw();
-			MyllyGUI.Process();
 		}
 
 		private void MainWindow_Resize( object sender, System.EventArgs e )
@@ -90,26 +75,28 @@ namespace TestApp
 
 		private void MainWindow_Load( object sender, EventArgs e )
 		{
-			VectorScreen vec = new VectorScreen();
-				
 			canvas = new MGUI.Canvas( Element.Null );
 			canvas.AddFlags( ELEMFLAG.BACKGROUND );
 			canvas.Colour = colWindow;
 
-			button = new MGUI.Button( canvas, vec, vec, ELEMFLAG.BORDER, colWindow, "Submit" );
+			button = new MGUI.Button( canvas );
+			button.Colour = colWindow;
+			button.Text = "Submit";
 			button.TextColour = colText;
 			button.FontName = "Verdana";
 			button.OnMouseRelease += new CursorEventHandler( Button_Submit );
 
-			editbox = new MGUI.Editbox( canvas, vec, vec, 0, colTextBG, "" );
+			editbox = new MGUI.Editbox( canvas );
+			editbox.Colour = colTextBG;
 			editbox.TextColour = colText;
 			editbox.FontName = "Lucida Console";
 			editbox.OnInputTextReturn += new EventHandler( Editbox_Return );
 
-			memobox = new MGUI.Memobox( canvas, vec, vec, ELEMFLAG.MEMO_TOPBOTTOM, colTextBG );
+			memobox = new MGUI.Memobox( canvas );
+			memobox.Colour = colTextBG;
 			memobox.TextColour = colText;
 			memobox.SetFont( "Lucida Console", 10, 0 );
-			memobox.AddFlags( ELEMFLAG.TEXT_TAGS );
+			memobox.AddFlags( ELEMFLAG.MEMO_TOPBOTTOM | ELEMFLAG.TEXT_TAGS );
 			memobox.SetPadding( 10, 4, 10, 10 );
 
 			ResizeWindow(); 

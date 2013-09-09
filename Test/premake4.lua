@@ -17,8 +17,9 @@ project "MGUI-CSharp-Test"
 	}
 
 	vpaths {
-			["Properties"] = { "../Test/Properties/**" },
-			[""] = { "../Test/*.cs", "../Test/premake4.lua" } }
+		["Properties"] = { "../Test/Properties/**" },
+		[""] = { "../Test/*.cs", "../Test/premake4.lua" }
+	}
 
 	configuration "Debug"
 		targetname "guitestcs"

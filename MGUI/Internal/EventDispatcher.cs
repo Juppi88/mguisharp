@@ -46,7 +46,7 @@ namespace MGUI
 			element.HandleEvent( ref args );			
 		}
 
-		private void HandleEvent( ref GuiEventArgs args )
+		protected virtual void HandleEvent( ref GuiEventArgs args )
 		{
 			switch ( args.type )
 			{
@@ -145,5 +145,24 @@ namespace MGUI
 		}
 
 		private static Dictionary<IntPtr, Element> elements;
+	}
+
+	public partial class Window : Element
+	{
+		protected override void HandleEvent( ref GuiEventArgs args )
+		{
+			base.HandleEvent( ref args );
+
+			switch ( args.type )
+			{
+				case MGUI_EVENT.WINDOW_CLOSE:
+					if ( OnClose != null )
+					{
+						EventArgs data = new EventArgs();
+						OnClose( this, data );
+					}
+					break;
+			}
+		}
 	}
 }

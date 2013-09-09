@@ -8,7 +8,7 @@ using MGUI.Math;
 
 namespace MGUI
 {
-    public partial class Element
+    public partial class Element : IDisposable
     {
 		public Element()
 		{
@@ -17,7 +17,18 @@ namespace MGUI
 
 		~Element()
 		{
+			if ( elementHandle != IntPtr.Zero )
+			{
+				Dispose();
+			}
+		}
+
+		public void Dispose()
+		{
 			DeinitializeEvents();
+			API.mgui_element_destroy( elementHandle );
+
+			elementHandle = IntPtr.Zero;
 		}
 
 		// --------------------------------------------------

@@ -7,10 +7,15 @@ project "MGUI-CSharp"
 	location ( "../Projects/" .. os.get() .. "/" .. _ACTION )
 	targetextension ".dll"
 
+	links {
+		"System"
+	}
+	
 	vpaths {
-			["Elements"] = { "../MGUI/Elements/**" },
-			["Internal"] = { "../MGUI/Internal/**" },
-			[""] = { "../MGUI/*.cs", "../MGUI/premake4.lua" } }
+		["Elements"] = { "../MGUI/Elements/**" },
+		["Internal"] = { "../MGUI/Internal/**" },
+		[""] = { "../MGUI/*.cs", "../MGUI/premake4.lua" }
+	}
 
 	configuration "Debug"
 		targetname "mguics"
