@@ -11,22 +11,22 @@ namespace MGUI
 	{
 		public Memobox( Element parentElement )
 		{
-			elementHandle = API.mgui_create_memobox( parentElement.Handle );
+			Handle = API.mgui_create_memobox( parentElement.Handle );
 		}
 
-		public Memobox( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMENT flags, Colour col )
+		public Memobox( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour col )
 		{
-			elementHandle = API.mgui_create_memobox_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex() );
+			Handle = API.mgui_create_memobox_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex() );
 		}
 
 		public void AddLine( string text )
 		{
-			API.mgui_memobox_add_line_s( elementHandle, text );
+			API.mgui_memobox_add_line_s( Handle, text );
 		}
 
 		public void AddColouredLine( string text, Colour col )
 		{
-			API.mgui_memobox_add_line_col_s( elementHandle, text, ref col );
+			API.mgui_memobox_add_line_col_s( Handle, text, ref col );
 		}
 	}
 }

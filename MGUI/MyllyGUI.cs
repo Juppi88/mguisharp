@@ -8,7 +8,7 @@ namespace MGUI
 {
 	public static class MyllyGUI
 	{
-		public static void Initialize( IntPtr wndHandle, ref IRendererHandle renderer )
+		public static void Initialize( IntPtr wndHandle, ref IRenderer renderer )
 		{
 			API.mgui_initialize( wndHandle, (uint)MGUI_PARAMETERS.HOOK_INPUT | (uint)MGUI_PARAMETERS.USE_DRAW_EVENT );
 			API.mgui_set_renderer( ref renderer );

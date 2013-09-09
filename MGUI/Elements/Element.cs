@@ -3,13 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using MGUI.Math;
 
 namespace MGUI
 {
-    public class Element
+    public partial class Element
     {
-		public Element() { elementHandle = IntPtr.Zero; }
+		public Element()
+		{
+			elementHandle = IntPtr.Zero;
+		}
+
+		~Element()
+		{
+			DeinitializeEvents();
+		}
+
+		// --------------------------------------------------
+		// Element focus
+		// --------------------------------------------------
+
+		public bool Focus
+		{
+			get { if ( API.mgui_get_focus() == elementHandle ) return true; return false; }
+			set { if ( value ) API.mgui_set_focus( elementHandle ); else API.mgui_set_focus( IntPtr.Zero ); }
+		}
+
+		public static Element GetFocusElement()
+		{
+			IntPtr element = API.mgui_get_focus();
+
+			if ( elements.ContainsKey( element ) )
+				return elements[element];
+
+			return null;
+		}
 
 		// --------------------------------------------------
 		// Position and size
@@ -67,7 +96,7 @@ namespace MGUI
 
 		public string Text
 		{
-			get { return API.mgui_get_text( elementHandle ); }
+			get { IntPtr text = API.mgui_get_text( elementHandle ); return Marshal.PtrToStringAnsi( text ); }
 			set { API.mgui_set_text_s( elementHandle, value ); }
 		}
 
@@ -99,7 +128,7 @@ namespace MGUI
 
 		public string FontName
 		{
-			get { return API.mgui_get_font_name( elementHandle ); }
+			get { IntPtr text = API.mgui_get_font_name( elementHandle ); return Marshal.PtrToStringAnsi( text ); }
 			set { API.mgui_set_font_name( elementHandle, value ); }
 		}
 
@@ -129,12 +158,12 @@ namespace MGUI
 			get { return API.mgui_get_flags( elementHandle ); }
 		}
 
-		public void AddFlags( ELEMENT flags )
+		public void AddFlags( ELEMFLAG flags )
 		{
 			API.mgui_add_flags( elementHandle, (uint)flags );
 		}
 
-		public void RemoveFlags( ELEMENT flags )
+		public void RemoveFlags( ELEMFLAG flags )
 		{
 			API.mgui_remove_flags( elementHandle, (uint)flags );
 		}
@@ -149,7 +178,7 @@ namespace MGUI
 		public event CursorEventHandler OnMouseRelease;
 		public event CursorEventHandler OnDrag;
 		public event EventHandler OnFocusEnter;
-		public event EventHandler OnMouseExit;
+		public event EventHandler OnFocusExit;
 		public event EventHandler OnInputTextChange;
 		public event EventHandler OnInputTextReturn;
 
@@ -160,10 +189,11 @@ namespace MGUI
 		public IntPtr Handle
 		{
 			get { return elementHandle; }
+			set { if ( value != IntPtr.Zero ) { elementHandle = value; InitializeEvents(); } }
 		}
 
 		// Handle to the internal MGUI element struct
-		protected IntPtr elementHandle;
+		private IntPtr elementHandle;
 
 		// A null element (can be used as a parent)
 		public static Element Null;

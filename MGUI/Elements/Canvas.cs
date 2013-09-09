@@ -11,7 +11,7 @@ namespace MGUI
 	{
 		public Canvas( Element parentElement )
 		{
-			elementHandle = API.mgui_create_canvas( parentElement.Handle );
+			Handle = API.mgui_create_canvas( parentElement.Handle );
 		}
 	}
 }

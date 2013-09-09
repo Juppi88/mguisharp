@@ -11,12 +11,12 @@ namespace MGUI
 	{
 		public Editbox( Element parentElement )
 		{
-			elementHandle = API.mgui_create_editbox( parentElement.Handle );
+			Handle = API.mgui_create_editbox( parentElement.Handle );
 		}
 
-		public Editbox( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMENT flags, Colour col, string text )
+		public Editbox( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour col, string text )
 		{
-			elementHandle = API.mgui_create_editbox_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
+			Handle = API.mgui_create_editbox_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
 		}
 	}
 }

@@ -18,75 +18,30 @@ namespace TestApp
 		// Initialization methods
 		// --------------------------------------------------
 
-		public static IRendererHandle Initialize( Form window, int width, int height )
+		public static IRenderer Initialize( Form window, int width, int height )
 		{
-			// Prepare and fill the renderer API struct
-			//handle = new IRendererHandle();
-
-			//IRenderer.Begin begin = Begin;
-			handle.begin = Begin;// Marshal.GetFunctionPointerForDelegate( begin );
-			
-			//IRenderer.End end = End;
-			handle.end = End;// Marshal.GetFunctionPointerForDelegate( end );
-
-			//IRenderer.Resize resize = Resize;
-			handle.resize = Resize;// Marshal.GetFunctionPointerForDelegate( resize );
-
-			IRenderer.SetDrawMode set_draw_mode = SetDrawMode;
-			handle.set_draw_mode = SetDrawMode;// Marshal.GetFunctionPointerForDelegate( set_draw_mode );
-
-			IRenderer.SetDrawColour set_draw_colour = SetDrawColour;
-			handle.set_draw_colour = SetDrawColour;// Marshal.GetFunctionPointerForDelegate( set_draw_colour );
-
+			handle.begin = Begin;
+			handle.end = End;
+			handle.resize = Resize;
+			handle.set_draw_mode = SetDrawMode;
+			handle.set_draw_colour = SetDrawColour;
 			handle.set_draw_depth = SetDrawDepth;
-
-			IRenderer.SetDrawTransform set_draw_transform = SetDrawTransform;
-			handle.set_draw_transform = SetDrawTransform;// Marshal.GetFunctionPointerForDelegate( set_draw_transform );
-
-			IRenderer.ResetDrawTransform reset_draw_transform = ResetDrawTransform;
-			handle.reset_draw_transform = ResetDrawTransform;// Marshal.GetFunctionPointerForDelegate( reset_draw_transform );
-
-			IRenderer.StartClip start_clip = StartClip;
-			handle.start_clip = StartClip;// Marshal.GetFunctionPointerForDelegate( start_clip );
-
-			IRenderer.EndClip end_clip = EndClip;
-			handle.end_clip = EndClip;//Marshal.GetFunctionPointerForDelegate( end_clip );
-
-			IRenderer.DrawRect draw_rect = DrawRect;
-			handle.draw_rect = DrawRect;// Marshal.GetFunctionPointerForDelegate( draw_rect );
-
-			IRenderer.DrawTriangle draw_triangle = DrawTriangle;
-			handle.draw_triangle = DrawTriangle;// Marshal.GetFunctionPointerForDelegate( draw_triangle );
-
-			IRenderer.DrawPixel draw_pixel = DrawPixel;
-			handle.draw_pixel = DrawPixel;// Marshal.GetFunctionPointerForDelegate( draw_pixel );
-
-			IRenderer.LoadTexture load_texture = LoadTexture;
-			handle.load_texture = LoadTexture;// Marshal.GetFunctionPointerForDelegate( load_texture );
-
-			IRenderer.DestroyTexture destroy_texture = DestroyTexture;
-			handle.destroy_texture = DestroyTexture;// Marshal.GetFunctionPointerForDelegate( destroy_texture );
-
-			IRenderer.DrawTexturedRect draw_textured_rect = DrawTexturedRect;
-			handle.draw_textured_rect = DrawTexturedRect;// GetFunctionPointerForDelegate( draw_textured_rect );
-
-			//IRenderer.LoadFont load_font = LoadFont;
-			handle.load_font = LoadFont;// LoadFont;// Marshal.GetFunctionPointerForDelegate( load_font );
-
-			//IRenderer.DestroyFont destroy_font = DestroyFont;
-			handle.destroy_font = DestroyFont;// DestroyFont;// Marshal.GetFunctionPointerForDelegate( destroy_font );
-
-			//IRenderer.DrawText draw_text = DrawText;
-			handle.draw_text = DrawText;// Marshal.GetFunctionPointerForDelegate( draw_text );
-
-			//IRenderer.MeasureText measure_text = MeasureText;
-			handle.measure_text = MeasureText;// Marshal.GetFunctionPointerForDelegate( measure_text );
-
-			IRenderer.ScreenPosToWorld screen_pos_to_world = ScreenPosToWorld;
-			handle.screen_pos_to_world = ScreenPosToWorld;// Marshal.GetFunctionPointerForDelegate( screen_pos_to_world );
-
-			IRenderer.WorldPosToScreen world_pos_to_screen = WorldPosToScreen;
-			handle.world_pos_to_screen = WorldPosToScreen;// Marshal.GetFunctionPointerForDelegate( world_pos_to_screen );
+			handle.set_draw_transform = SetDrawTransform;
+			handle.reset_draw_transform = ResetDrawTransform;
+			handle.start_clip = StartClip;
+			handle.end_clip = EndClip;
+			handle.draw_rect = DrawRect;
+			handle.draw_triangle = DrawTriangle;
+			handle.draw_pixel = DrawPixel;
+			handle.load_texture = LoadTexture;
+			handle.destroy_texture = DestroyTexture;
+			handle.draw_textured_rect = DrawTexturedRect;
+			handle.load_font = LoadFont;
+			handle.destroy_font = DestroyFont;
+			handle.draw_text = DrawText;
+			handle.measure_text = MeasureText;
+			handle.screen_pos_to_world = ScreenPosToWorld;
+			handle.world_pos_to_screen = WorldPosToScreen;
 
 			// Prepare graphics
 			Graphics gc = window.CreateGraphics();
@@ -199,10 +154,10 @@ namespace TestApp
 			Font gdiFont;
 			FontStyle style = 0;
 
-			if ( ( flags & (uint)FONT.FFLAG_BOLD ) != 0 )	style |= FontStyle.Bold;
-			if ( ( flags & (uint)FONT.FFLAG_ITALIC ) != 0 )	style |= FontStyle.Italic;
-			if ( ( flags & (uint)FONT.FFLAG_ULINE ) != 0 )	style |= FontStyle.Underline;
-			if ( ( flags & (uint)FONT.FFLAG_STRIKE ) != 0 )	style |= FontStyle.Strikeout;
+			if ( ( flags & (uint)FONTFLAG.BOLD ) != 0 )		style |= FontStyle.Bold;
+			if ( ( flags & (uint)FONTFLAG.ITALIC ) != 0 )	style |= FontStyle.Italic;
+			if ( ( flags & (uint)FONTFLAG.ULINE ) != 0 )	style |= FontStyle.Underline;
+			if ( ( flags & (uint)FONTFLAG.STRIKE ) != 0 )	style |= FontStyle.Strikeout;
 
 			gdiFont = new Font( font, (float)size, style, GraphicsUnit.Pixel, (byte)charset );
 			fonts.Add( ++fontIndex, gdiFont );
@@ -230,7 +185,7 @@ namespace TestApp
 			y -= 1;
 			RectangleF r = new RectangleF( (float)x, (float)y, 1000, 1000 );
 
-			if ( ( flags & (uint)TEXTFLAG.TFLAG_SHADOW ) != 0 )
+			if ( ( flags & (uint)TEXTFLAG.SHADOW ) != 0 )
 			{
 				RectangleF rshadow = new RectangleF( (float)x + SHADOW_OFFSET, (float)( y + SHADOW_OFFSET ), 1000, 1000 );
 
@@ -280,15 +235,15 @@ namespace TestApp
 		// --------------------------------------------------
 		// Renderer variables
 		// -------------------------------------------------
-		private static IRendererHandle handle;		// Renderer interface
-		private static Form drawWindow;				// Window form
-		private static Bitmap bitmap;				// Bitmap to draw to
-		private static Graphics graphics;			// GDI+ graphics context
-		private static Color drawColour;			// Draw colour
-		private static SolidBrush brush;			// Brush used for drawing
-		private static UInt32 fontIndex;				// Current font index
+		private static IRenderer handle;		// Renderer interface
+		private static Form drawWindow;			// Window form
+		private static Bitmap bitmap;			// Bitmap to draw to
+		private static Graphics graphics;		// GDI+ graphics context
+		private static Color drawColour;		// Draw colour
+		private static SolidBrush brush;		// Brush used for drawing
+		private static UInt32 fontIndex;		// Current font index
 		private static Dictionary<uint,Font> fonts;	// List of loaded fonts
-		//private static List<IntPtr> textures;		// List of loaded textures
+		//private static List<IntPtr> textures;	// List of loaded textures
 
 		private const int SHADOW_OFFSET = 1;
 	}

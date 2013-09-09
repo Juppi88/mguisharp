@@ -25,7 +25,7 @@ namespace TestApp
 			processTimer.Enabled = true;
 			processTimer.Start();
 
-			IRendererHandle renderer = Renderer.Initialize( this, Width, Height );
+			IRenderer renderer = Renderer.Initialize( this, Width, Height );
 			MyllyGUI.Initialize( this.Handle, ref renderer );
 		}
 
@@ -70,23 +70,33 @@ namespace TestApp
 
 		private void Button_Submit( object sender, CursorEventArgs args )
 		{
-			// Do stuff
+			if ( editbox.TextLength == 0 ) return;
+
+			memobox.AddLine( "] " + editbox.Text );
+
+			editbox.Text = "";
+			editbox.Focus = true;
 		}
 
 		private void Editbox_Return( object sender, EventArgs args )
 		{
-			// Do more stuff
+			if ( editbox.TextLength == 0 ) return;
+			
+			memobox.AddLine( "] " + editbox.Text );
+
+			editbox.Text = "";
+			editbox.Focus = true;
 		}
 
 		private void MainWindow_Load( object sender, EventArgs e )
 		{
 			VectorScreen vec = new VectorScreen();
-	
+				
 			canvas = new MGUI.Canvas( Element.Null );
-			canvas.AddFlags( ELEMENT.FLAG_BACKGROUND );
+			canvas.AddFlags( ELEMFLAG.BACKGROUND );
 			canvas.Colour = colWindow;
 
-			button = new MGUI.Button( canvas, vec, vec, ELEMENT.FLAG_BORDER, colWindow, "Submit" );
+			button = new MGUI.Button( canvas, vec, vec, ELEMFLAG.BORDER, colWindow, "Submit" );
 			button.TextColour = colText;
 			button.FontName = "Verdana";
 			button.OnMouseRelease += new CursorEventHandler( Button_Submit );
@@ -96,10 +106,10 @@ namespace TestApp
 			editbox.FontName = "Lucida Console";
 			editbox.OnInputTextReturn += new EventHandler( Editbox_Return );
 
-			memobox = new MGUI.Memobox( canvas, vec, vec, ELEMENT.FLAG_MEMO_TOPBOTTOM, colTextBG );
+			memobox = new MGUI.Memobox( canvas, vec, vec, ELEMFLAG.MEMO_TOPBOTTOM, colTextBG );
 			memobox.TextColour = colText;
 			memobox.SetFont( "Lucida Console", 10, 0 );
-			memobox.AddFlags( ELEMENT.FLAG_TEXT_TAGS );
+			memobox.AddFlags( ELEMFLAG.TEXT_TAGS );
 			memobox.SetPadding( 10, 4, 10, 10 );
 
 			ResizeWindow(); 

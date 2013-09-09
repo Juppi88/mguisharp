@@ -26,10 +26,17 @@ namespace MGUI
 		public static extern void mgui_force_redraw();
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_renderer( ref IRendererHandle renderer );
+		public static extern void mgui_set_renderer( ref IRenderer renderer );
+
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_set_skin( string skinimg );
+
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_set_skin( string skinimg );
+		public static extern IntPtr mgui_get_focus();
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_set_focus( IntPtr element );
 
 		// --------------------------------------------------
 		// Element constructors
@@ -137,10 +144,10 @@ namespace MGUI
 		public static extern void mgui_set_alpha( IntPtr element, byte alpha );
 
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern string mgui_get_text( IntPtr element );
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_get_text( IntPtr element );
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_text_s( IntPtr element, string text );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -162,8 +169,8 @@ namespace MGUI
 		public static extern void mgui_set_text_padding( IntPtr element, byte top, byte bottom, byte left, byte right );
 
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern string mgui_get_font_name( IntPtr element );
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_get_font_name( IntPtr element );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern byte mgui_get_font_size( IntPtr element );
@@ -171,7 +178,7 @@ namespace MGUI
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern byte mgui_get_font_flags( IntPtr element );
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_font_name( IntPtr element, string font );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -180,7 +187,7 @@ namespace MGUI
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_font_flags( IntPtr element, byte flags );
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_font( IntPtr element, string font, byte size, byte flags, byte charset );
 
 
@@ -193,6 +200,9 @@ namespace MGUI
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern uint mgui_remove_flags( IntPtr element, uint flags );
 
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_set_event_handler( IntPtr element, Element.GuiEventHandler handler, IntPtr data );
+
 		// --------------------------------------------------
 		// Label functions
 		// --------------------------------------------------
@@ -204,10 +214,10 @@ namespace MGUI
 		// Memobox functions
 		// --------------------------------------------------
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_memobox_add_line_s( IntPtr memobox, string text );
 
-		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_memobox_add_line_col_s( IntPtr memobox, string text, ref Math.Colour col );
 	}
 }

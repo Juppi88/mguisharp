@@ -11,12 +11,12 @@ namespace MGUI
 	{
 		public Button( Element parentElement )
 		{
-			elementHandle = API.mgui_create_button( parentElement.Handle );
+			Handle = API.mgui_create_button( parentElement.Handle );
 		}
 
-		public Button( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMENT flags, Colour col, string text )
+		public Button( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour col, string text )
 		{
-			elementHandle = API.mgui_create_button_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
+			Handle = API.mgui_create_button_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
 		}
 	}
 }
