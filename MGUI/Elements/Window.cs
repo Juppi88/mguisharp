@@ -34,6 +34,7 @@ namespace MGUI
 		// Events
 		// --------------------------------------------------
 
-		public event EventHandler OnClose;
+		public event EventHandler		OnClose;
+		public event ResizeEventHandler	OnResize;
 	}
 }

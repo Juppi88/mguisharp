@@ -97,6 +97,21 @@ namespace MGUI
 		public MeasureText measure_text;
 
 		[MarshalAs( UnmanagedType.FunctionPtr )]
+		public CreateRenderTarget create_render_target;
+
+		[MarshalAs( UnmanagedType.FunctionPtr )]
+		public DestroyRenderTarget destroy_render_target;
+
+		[MarshalAs( UnmanagedType.FunctionPtr )]
+		public DrawRenderTarget draw_render_target;
+
+		[MarshalAs( UnmanagedType.FunctionPtr )]
+		public EnableRenderTarget enable_render_target;
+
+		[MarshalAs( UnmanagedType.FunctionPtr )]
+		public DisableRenderTarget disable_render_target;
+
+		[MarshalAs( UnmanagedType.FunctionPtr )]
 		public ScreenPosToWorld screen_pos_to_world;
 
 		[MarshalAs( UnmanagedType.FunctionPtr )]
@@ -150,7 +165,7 @@ namespace MGUI
 		public delegate void DestroyTexture( IntPtr texture );
 
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
-		public delegate void DrawTexturedRect( IntPtr texture, int x, int y, uint w, uint h, float u1, float v1, float u2, float v2 );
+		public delegate void DrawTexturedRect( IntPtr texture, int x, int y, uint w, uint h, float[] uv );
 
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
 		public delegate UInt32 LoadFont( string font, uint size, uint flags, uint charset, uint firstc, uint lastc );
@@ -163,6 +178,21 @@ namespace MGUI
 
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
 		public delegate void MeasureText( UInt32 font, string text, out uint w, out uint h );
+
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate IntPtr CreateRenderTarget( uint width, uint height );
+
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate void DestroyRenderTarget( IntPtr target );
+
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate void DrawRenderTarget( IntPtr target, int x, int y, uint w, uint h );
+
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate void EnableRenderTarget( IntPtr target, int x, int y );
+
+		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+		public delegate void DisableRenderTarget( IntPtr target );
 
 		[UnmanagedFunctionPointer( CallingConvention.Cdecl )]
 		public delegate void ScreenPosToWorld( ref Math.Vector3 src, out Math.Vector3 dst );

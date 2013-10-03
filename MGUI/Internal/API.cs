@@ -20,6 +20,9 @@ namespace MGUI
 		public static extern void mgui_shutdown();
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_pre_process();
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_process();
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -31,6 +34,20 @@ namespace MGUI
 		[DllImport( "mgui.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_skin( string skinimg );
 
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_resize( ushort width, ushort height );
+
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_hardware_renderer( IntPtr hwnd );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_destroy_hardware_renderer();
+
+
+		// --------------------------------------------------
+		// Child/parent relations and other element stuff
+		// --------------------------------------------------
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_get_focus();
@@ -38,9 +55,6 @@ namespace MGUI
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_set_focus( IntPtr element );
 
-		// --------------------------------------------------
-		// Child/parent relations
-		// --------------------------------------------------
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_add_child( IntPtr parent, IntPtr child );
@@ -77,6 +91,12 @@ namespace MGUI
 		public static extern IntPtr mgui_create_canvas( IntPtr parent );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_checkbox( IntPtr parent );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_checkbox_ex( IntPtr parent, short x, short y, uint flags, uint col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_editbox( IntPtr parent );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -93,6 +113,12 @@ namespace MGUI
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_memobox_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_progressbar( IntPtr parent );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_progressbar_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col1, uint col2, float max_value );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_window( IntPtr parent );
@@ -282,6 +308,40 @@ namespace MGUI
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_memobox_set_margin( IntPtr memobox, uint margin );
+
+		// --------------------------------------------------
+		// ProgressBar functions
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_progressbar_get_value( IntPtr bar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_set_value( IntPtr bar, float value );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_progressbar_get_max_value( IntPtr bar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_set_max_value( IntPtr bar, float value );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_get_colour( IntPtr window, out Math.Colour col_start, out Math.Colour col_end );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_set_colour( IntPtr window, ref Math.Colour col_start, ref Math.Colour col_end );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_progressbar_get_bg_shade( IntPtr bar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_set_bg_shade( IntPtr bar, float shade );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern byte mgui_progressbar_get_thickness( IntPtr bar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_progressbar_set_thickness( IntPtr bar, byte thickess );
 
 		// --------------------------------------------------
 		// Window functions

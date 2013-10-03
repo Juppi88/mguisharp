@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,10 +17,17 @@ namespace TestApp
 	{
 		public MainWindow()
 		{
+			// Resizing is slightly dodgy, so we're doing this
+			this.FormBorderStyle = FormBorderStyle.Fixed3D;
+
 			InitializeComponent();
-			
-			IRenderer renderer = Renderer.Initialize( this, Width, Height );
-			MyllyGUI.Initialize( this.Handle, ref renderer );
+
+			string skin = null;
+
+			if ( File.Exists( "mguiskin.png" ) )
+				skin = "mguiskin.png";
+
+			MyllyGUI.Initialize( this.Handle, skin );
 		}
 
 		~MainWindow()
@@ -30,6 +38,7 @@ namespace TestApp
 
 		private void MainWindow_Resize( object sender, System.EventArgs e )
 		{
+			MyllyGUI.Resize( (ushort)Width, (ushort)Height );
 			ResizeWindow();
 		}
 
@@ -81,9 +90,9 @@ namespace TestApp
 
 			button = new MGUI.Button( canvas );
 			button.Colour = colWindow;
-			button.Text = "Submit";
 			button.TextColour = colText;
-			button.FontName = "Verdana";
+			button.Text = "Submit";
+			button.SetFont( "Verdana", 11, FONTFLAG.NONE );
 			button.OnMouseRelease += new CursorEventHandler( Button_Submit );
 
 			editbox = new MGUI.Editbox( canvas );
@@ -96,13 +105,13 @@ namespace TestApp
 			memobox.Colour = colTextBG;
 			memobox.TextColour = colText;
 			memobox.SetFont( "Lucida Console", 10, 0 );
-			memobox.AddFlags( ELEMFLAG.MEMO_TOPBOTTOM | ELEMFLAG.TEXT_TAGS );
+			memobox.AddFlags( ELEMFLAG.MEMOBOX_TOPBOTTOM | ELEMFLAG.TEXT_TAGS );
 			memobox.SetPadding( 10, 4, 10, 10 );
 
 			ResizeWindow(); 
 
 			memobox.AddLine( "MGUI Console Test loaded." );
-			memobox.AddColouredLine( "Hello from C#!", new Colour( 255, 0, 255 ) );
+			memobox.AddColouredLine( "Hello from [#00ffff][#uline]C#[#e]!", new Colour( 255, 0, 255 ) );
 		}
 
 		private MGUI.Canvas canvas;

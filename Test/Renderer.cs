@@ -9,6 +9,10 @@ using System.Drawing;
 using MGUI;
 using MGUI.Math;
 
+// This code is deprecated, it might no longer fully implement the renderer API.
+// It is recommended to use the native hardware accelerated renderer implemented in
+// mgui.dll (as this example app does).
+
 namespace TestApp
 {
 	// Take a look at IRenderer in IRenderer.cs for the renderer function 'prototypes'.
@@ -145,7 +149,7 @@ namespace TestApp
 		{
 		}
 
-		private static void DrawTexturedRect( IntPtr texture, int x, int y, uint w, uint h, float u1, float v1, float u2, float v2 )
+		private static void DrawTexturedRect( IntPtr texture, int x, int y, uint w, uint h, float[] uv )
 		{
 		}
 
@@ -220,6 +224,27 @@ namespace TestApp
 	
 			w = (uint)size.Width;
 			h = (uint)size.Height;
+		}
+
+		private static IntPtr CreateRenderTarget( uint width, uint height )
+		{
+			return IntPtr.Zero;
+		}
+
+		private static void DestroyRenderTarget( IntPtr target )
+		{
+		}
+
+		private static void DrawRenderTarget( IntPtr target, int x, int y, uint w, uint h )
+		{
+		}
+
+		private static void EnableRenderTarget( IntPtr target, int x, int y )
+		{
+		}
+
+		private static void DisableRenderTarget( IntPtr target )
+		{
 		}
 
 		private static void ScreenPosToWorld( ref Vector3 src, out Vector3 dst )

@@ -46,12 +46,15 @@ namespace MGUI
 		TEXT_TAGS		= 1 << 15,	/* Text can be formatted using tags */
 		DEPTH_TEST		= 1 << 16,	/* Enable depth testing (useful for 3D text) */
 		DRAW_3D			= 1 << 17,	/* This element is fully 3D, use mgui_set_3d_* to manipulate */
+		CACHE_TEXTURE	= 1 << 18,	/* Use a cache texture */
 
 		// Element type specific flags
-		WINDOW_TITLEBAR	= 1 << 20,	/* Enable window titlebar */
-		WINDOW_CLOSEBTN	= 1 << 21,	/* Enable window close button */
-		EDIT_MASKINPUT	= 1 << 20,	/* Mask user input in editbox */
-		MEMO_TOPBOTTOM	= 1 << 20,	/* Memobox order is top to bottom */
+		CHECKBOX_CHECKED	= 1 << 24,	/* Checkbox is selected */
+		EDITBOX_MASKINPUT	= 1 << 24,	/* Mask user input in editbox */
+		MEMOBOX_TOPBOTTOM	= 1 << 24,	/* Memobox order is top to bottom */
+		WINDOW_TITLEBAR		= 1 << 24,	/* Enable window titlebar */
+		WINDOW_CLOSEBTN		= 1 << 25,	/* Enable window close button */
+		WINDOW_RESIZABLE	= 1 << 26,	/* Window can be resized by the user */
 	};
 
 	public enum FONTFLAG

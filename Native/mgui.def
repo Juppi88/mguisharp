@@ -1,11 +1,16 @@
 LIBRARY "mgui"
 EXPORTS
+	mgui_create_hardware_renderer
+	mgui_destroy_hardware_renderer
+
 	mgui_initialize
 	mgui_shutdown
+	mgui_pre_process
 	mgui_process
 	mgui_force_redraw
 	mgui_set_renderer
 	mgui_set_skin
+	mgui_resize
 	mgui_get_focus
 	mgui_set_focus
 	mgui_text_strip_format_tags
@@ -21,13 +26,16 @@ EXPORTS
 	mgui_create_button
 	mgui_create_button_ex
 	mgui_create_canvas
+	mgui_create_checkbox
+	mgui_create_checkbox_ex
 	mgui_create_editbox
 	mgui_create_editbox_ex
 	mgui_create_label
 	mgui_create_label_ex
 	mgui_create_memobox
 	mgui_create_memobox_ex
-	mgui_create_scrollbar
+	mgui_create_progressbar
+	mgui_create_progressbar_ex
 	mgui_create_sprite
 	mgui_create_sprite_ex
 	mgui_create_window
@@ -110,6 +118,18 @@ EXPORTS
 	mgui_memobox_set_history
 	mgui_memobox_get_margin
 	mgui_memobox_set_margin
+	mgui_progressbar_get_value
+	mgui_progressbar_set_value
+	mgui_progressbar_get_max_value
+	mgui_progressbar_set_max_value
+	mgui_progressbar_get_colour
+	mgui_progressbar_set_colour
+	mgui_progressbar_get_colour_i
+	mgui_progressbar_set_colour_i
+	mgui_progressbar_get_bg_shade
+	mgui_progressbar_set_bg_shade
+	mgui_progressbar_get_thickness
+	mgui_progressbar_set_thickness
 	mgui_sprite_get_texture
 	mgui_sprite_set_texture
 	mgui_sprite_get_texture_size

@@ -21,21 +21,25 @@ namespace MGUI
 			DRAG,			/* Element is dragged */
 			FOCUS_ENTER,	/* Element receives focus */
 			FOCUS_EXIT,		/* Element loses focus */
+			CHECBOX_TOGGLE,	/* Checkbox is toggled */
 			INPUT_CHANGE,	/* User modifies the text of an input element */
 			INPUT_RETURN,	/* User presses return while an input element is focused */
 			WINDOW_CLOSE,	/* Window is closed from the close button */
+			WINDOW_RESIZE,	/* Window is resized by the user */
 			FORCE_DWORD = 0x7FFFFFFF
 		};
 
 		[StructLayout( LayoutKind.Explicit )]
 		public struct GuiEventArgs
 		{
-			[FieldOffset(0)] public MGUI_EVENT	type;		// Event type
-			[FieldOffset(4)] public IntPtr		element;	// The element which triggered this event
-			[FieldOffset(8)] public IntPtr		data;		// User specified data
-			[FieldOffset(12)] public short		mouseX;		// Mouse cursor X co-ordinate
-			[FieldOffset(14)] public short		mouseY;		// Mouse cursor Y co-ordinate
-			[FieldOffset(12)] public uint		key;		// Pressed key
+			[FieldOffset(0)] public MGUI_EVENT	type;			// Event type
+			[FieldOffset(4)] public IntPtr		element;		// The element which triggered this event
+			[FieldOffset(8)] public IntPtr		data;			// User specified data
+			[FieldOffset(12)] public short		mouseCursorX;	// Mouse cursor X co-ordinate
+			[FieldOffset(14)] public short		mouseCursorY;	// Mouse cursor Y co-ordinate
+			[FieldOffset(12)] public uint		key;			// Pressed key
+			[FieldOffset(12)] public ushort		resizeWidth;	// Window width after resizing
+			[FieldOffset(14)] public ushort		resizeHeight;	// Window height after resizing
 		}
 		
 		private static void ProcessEvents( ref GuiEventArgs args )
@@ -53,7 +57,7 @@ namespace MGUI
 				case MGUI_EVENT.HOVER_ENTER:
 					if ( OnMouseEnter != null )
 					{
-						CursorEventArgs data = new CursorEventArgs( args.mouseX, args.mouseY );
+						CursorEventArgs data = new CursorEventArgs( args.mouseCursorX, args.mouseCursorY );
 						OnMouseEnter( this, data );
 					}
 					break;
@@ -61,7 +65,7 @@ namespace MGUI
 				case MGUI_EVENT.HOVER_LEAVE:
 					if ( OnMouseLeave != null )
 					{
-						CursorEventArgs data = new CursorEventArgs( args.mouseX, args.mouseY );
+						CursorEventArgs data = new CursorEventArgs( args.mouseCursorX, args.mouseCursorY );
 						OnMouseLeave( this, data );
 					}
 					break;
@@ -69,7 +73,7 @@ namespace MGUI
 				case MGUI_EVENT.CLICK:
 					if ( OnMouseClick != null )
 					{
-						CursorEventArgs data = new CursorEventArgs( args.mouseX, args.mouseY );
+						CursorEventArgs data = new CursorEventArgs( args.mouseCursorX, args.mouseCursorY );
 						OnMouseClick( this, data );
 					}
 					break;
@@ -77,7 +81,7 @@ namespace MGUI
 				case MGUI_EVENT.RELEASE:
 					if ( OnMouseRelease != null )
 					{
-						CursorEventArgs data = new CursorEventArgs( args.mouseX, args.mouseY );
+						CursorEventArgs data = new CursorEventArgs( args.mouseCursorX, args.mouseCursorY );
 						OnMouseRelease( this, data );
 					}
 					break;
@@ -85,7 +89,7 @@ namespace MGUI
 				case MGUI_EVENT.DRAG:
 					if ( OnDrag != null )
 					{
-						CursorEventArgs data = new CursorEventArgs( args.mouseX, args.mouseY );
+						CursorEventArgs data = new CursorEventArgs( args.mouseCursorX, args.mouseCursorY );
 						OnDrag( this, data );
 					}
 					break;
@@ -147,6 +151,33 @@ namespace MGUI
 		private static Dictionary<IntPtr, Element> elements;
 	}
 
+	// --------------------------------------------------
+	// Checkbox events
+	// --------------------------------------------------
+
+	public partial class Checkbox : Element
+	{
+		protected override void HandleEvent( ref GuiEventArgs args )
+		{
+			base.HandleEvent( ref args );
+
+			switch ( args.type )
+			{
+				case MGUI_EVENT.CHECBOX_TOGGLE:
+					if ( OnToggle != null )
+					{
+						EventArgs data = new EventArgs();
+						OnToggle( this, data );
+					}
+					break;
+			}
+		}
+	}
+
+	// --------------------------------------------------
+	// Window events
+	// --------------------------------------------------
+
 	public partial class Window : Element
 	{
 		protected override void HandleEvent( ref GuiEventArgs args )
@@ -160,6 +191,14 @@ namespace MGUI
 					{
 						EventArgs data = new EventArgs();
 						OnClose( this, data );
+					}
+					break;
+
+				case MGUI_EVENT.WINDOW_RESIZE:
+					if ( OnResize != null )
+					{
+						ResizeEventArgs data = new ResizeEventArgs( args.resizeWidth, args.resizeHeight );
+						OnResize( this, data );
 					}
 					break;
 			}

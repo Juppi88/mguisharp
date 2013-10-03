@@ -206,9 +206,9 @@ namespace MGUI
 			set { API.mgui_set_font_flags( elementHandle, value ); }
 		}
 
-		public void SetFont( string fontName, byte fontSize, byte fontFlags, byte charset = 0 )
+		public void SetFont( string fontName, byte fontSize, FONTFLAG fontFlags, byte charset = 0 )
 		{
-			API.mgui_set_font( elementHandle, fontName, fontSize, fontFlags, charset );
+			API.mgui_set_font( elementHandle, fontName, fontSize, (byte)fontFlags, charset );
 		}
 
 		// --------------------------------------------------

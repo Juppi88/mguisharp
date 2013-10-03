@@ -7,6 +7,7 @@ project "MGUI-CSharp-Native"
 	location ( "../Projects/" .. os.get() .. "/" .. _ACTION )
 	targetname "mgui"
 	targetextension ".dll"
+	buildoptions { "/wd4201 /wd4996" } -- C4201: nameless struct/union, C4996: This function or variable may be unsafe.
 
 	links {
 		"Lib-Platform",
@@ -15,6 +16,9 @@ project "MGUI-CSharp-Native"
 		"Lib-Stringy",
 		"Lib-Input",
 		"Lib-MGUI",
+		"Lib-MGUI-Renderer-DirectX9",
+		"d3d9",
+		"d3dx9"
 	}
 	
 	vpaths {

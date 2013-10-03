@@ -5,7 +5,8 @@ solution ( "MGUI CSharp " .. string.upper( _ACTION ) )
 	flags { "ExtraWarnings" }
 	targetdir ( "../Builds/Lib/" .. os.get() .. "/" .. _ACTION )
 	includedirs { "../Libraries", "../Libraries/Types" }
-	defines { "_MYLLY_SHARED_LIB" }
+	libdirs { "../Builds/Lib/" }
+	defines { "MYLLY_SHARED_LIB" }
 	
 	configuration "Release"
 		defines { "NDEBUG" }
@@ -25,6 +26,7 @@ solution ( "MGUI CSharp " .. string.upper( _ACTION ) )
 	include "../Libraries/Input"
 	include "../Libraries/Math"
 	include "../Libraries/MGUI"
+	include "../Libraries/MGUI/Renderer/DirectX9"
 	include "../Libraries/Platform"
 	include "../Libraries/Stringy"
 	include "../Libraries/Types"
