@@ -2,15 +2,15 @@ LIBRARY "mgui"
 EXPORTS
 	mgui_create_hardware_renderer
 	mgui_destroy_hardware_renderer
-
+	
 	mgui_initialize
 	mgui_shutdown
 	mgui_pre_process
 	mgui_process
 	mgui_force_redraw
+	mgui_resize
 	mgui_set_renderer
 	mgui_set_skin
-	mgui_resize
 	mgui_get_focus
 	mgui_set_focus
 	mgui_text_strip_format_tags
@@ -32,10 +32,14 @@ EXPORTS
 	mgui_create_editbox_ex
 	mgui_create_label
 	mgui_create_label_ex
+	mgui_create_listbox
+	mgui_create_listbox_ex
 	mgui_create_memobox
 	mgui_create_memobox_ex
 	mgui_create_progressbar
 	mgui_create_progressbar_ex
+	mgui_create_scrollbar
+	mgui_create_scrollbar_ex
 	mgui_create_sprite
 	mgui_create_sprite_ex
 	mgui_create_window
@@ -104,6 +108,24 @@ EXPORTS
 	mgui_editbox_get_cursor_pos
 	mgui_editbox_set_cursor_pos
 	mgui_label_make_text_fit
+	mgui_listbox_add_item
+	mgui_listbox_remove_item
+	mgui_listbox_clean
+	mgui_listbox_set_sort_function
+	mgui_listbox_get_item_count
+	mgui_listbox_get_selected_count
+	mgui_listbox_get_first_item
+	mgui_listbox_get_next_item
+	mgui_listbox_get_selected_item
+	mgui_listbox_get_next_selected_item
+	mgui_listbox_get_item_text
+	mgui_listbox_set_item_text
+	mgui_listbox_get_item_data
+	mgui_listbox_set_item_data
+	mgui_listbox_get_selected_colour
+	mgui_listbox_set_selected_colour
+	mgui_listbox_get_selected_colour_i
+	mgui_listbox_set_selected_colour_i
 	mgui_memobox_add_line
 	mgui_memobox_add_line_col
 	mgui_memobox_add_line_s
@@ -130,6 +152,17 @@ EXPORTS
 	mgui_progressbar_set_bg_shade
 	mgui_progressbar_get_thickness
 	mgui_progressbar_set_thickness
+	mgui_scrollbar_set_params
+	mgui_scrollbar_get_content_size
+	mgui_scrollbar_set_content_size
+	mgui_scrollbar_get_step_size
+	mgui_scrollbar_set_step_size
+	mgui_scrollbar_get_bar_pos
+	mgui_scrollbar_set_bar_pos
+	mgui_scrollbar_get_bar_size
+	mgui_scrollbar_set_bar_size
+	mgui_scrollbar_get_bg_shade
+	mgui_scrollbar_set_bg_shade
 	mgui_sprite_get_texture
 	mgui_sprite_set_texture
 	mgui_sprite_get_texture_size
@@ -137,8 +170,8 @@ EXPORTS
 	mgui_sprite_resize
 	mgui_sprite_get_uv
 	mgui_sprite_set_uv
-	mgui_window_get_title_col
-	mgui_window_set_title_col
-	mgui_window_get_title_col_i
-	mgui_window_set_title_col_i
+	mgui_window_get_title_colour
+	mgui_window_set_title_colour
+	mgui_window_get_title_colour_i
+	mgui_window_set_title_colour_i
 	mgui_window_get_drag_offset

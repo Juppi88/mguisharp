@@ -7,14 +7,14 @@ using MGUI.Math;
 
 namespace MGUI
 {
-	public class ProgressBar : Element
+	public class Progressbar : Element
 	{
-		public ProgressBar( Element parentElement )
+		public Progressbar( Element parentElement )
 		{
 			Handle = API.mgui_create_progressbar( parentElement.Handle );
 		}
 
-		public ProgressBar( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour colStart, Colour colEnd, float maxValue )
+		public Progressbar( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour colStart, Colour colEnd, float maxValue )
 		{
 			Handle = API.mgui_create_progressbar_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, colStart.AsHex(), colEnd.AsHex(), maxValue );
 		}

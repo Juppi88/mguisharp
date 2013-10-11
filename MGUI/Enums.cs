@@ -42,16 +42,20 @@ namespace MGUI
 		TABSTOP			= 1 << 11,	/* Tab press can switch focus to this element */
 		MOUSECTRL		= 1 << 12,	/* Element triggers mouse input events */
 		KBCTRL			= 1 << 13,	/* Element triggers keyboard input events and accepts keyboard focus */
-		TEXT_SHADOW		= 1 << 14,	/* Text will cast a shadow */
-		TEXT_TAGS		= 1 << 15,	/* Text can be formatted using tags */
-		DEPTH_TEST		= 1 << 16,	/* Enable depth testing (useful for 3D text) */
-		DRAW_3D			= 1 << 17,	/* This element is fully 3D, use mgui_set_3d_* to manipulate */
-		CACHE_TEXTURE	= 1 << 18,	/* Use a cache texture */
+		SCROLLABLE		= 1 << 14,	/* Element will be scrollable if the content size exceeds boundaries */
+		TEXT_SHADOW		= 1 << 15,	/* Text will cast a shadow */
+		TEXT_TAGS		= 1 << 16,	/* Text can be formatted using tags */
+		DEPTH_TEST		= 1 << 17,	/* Enable depth testing (useful for 3D text) */
+		DRAW_3D			= 1 << 18,	/* This element is fully 3D, use mgui_set_3d_* to manipulate */
+		CACHE_TEXTURE	= 1 << 19,	/* Use a cache texture */
 
 		// Element type specific flags
 		CHECKBOX_CHECKED	= 1 << 24,	/* Checkbox is selected */
 		EDITBOX_MASKINPUT	= 1 << 24,	/* Mask user input in editbox */
+		LISTBOX_MULTISELECT = 1 << 24,	/* Listbox allows multiple rows to be selected at one time */
+		LISTBOX_SORTING		= 1 << 25,	/* Automatic sorting is enabled */
 		MEMOBOX_TOPBOTTOM	= 1 << 24,	/* Memobox order is top to bottom */
+		SCROLLBAR_HORIZ		= 1 << 24,	/* Scrollbar is horizontal */
 		WINDOW_TITLEBAR		= 1 << 24,	/* Enable window titlebar */
 		WINDOW_CLOSEBTN		= 1 << 25,	/* Enable window close button */
 		WINDOW_RESIZABLE	= 1 << 26,	/* Window can be resized by the user */

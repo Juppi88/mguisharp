@@ -14,9 +14,9 @@ namespace MGUI
 			Handle = API.mgui_create_label( parentElement.Handle );
 		}
 
-		public Label( Element parentElement, VectorScreen absPos, VectorScreen absSize, ELEMFLAG flags, Colour col, string text )
+		public Label( Element parentElement, VectorScreen absPos, ELEMFLAG flags, Colour col, string text )
 		{
-			Handle = API.mgui_create_label_ex( parentElement.Handle, absPos.x, absPos.y, (ushort)absSize.x, (ushort)absSize.y, (uint)flags, col.AsHex(), text );
+			Handle = API.mgui_create_label_ex( parentElement.Handle, absPos.x, absPos.y, (uint)flags, col.AsHex(), text );
 		}
 
 		public void MakeTextFit()

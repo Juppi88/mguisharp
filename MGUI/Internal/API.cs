@@ -106,7 +106,13 @@ namespace MGUI
 		public static extern IntPtr mgui_create_label( IntPtr parent );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern IntPtr mgui_create_label_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col, string text );
+		public static extern IntPtr mgui_create_label_ex( IntPtr parent, short x, short y, uint flags, uint text_col, string text );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_listbox( IntPtr parent );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_listbox_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col, uint select_col );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_memobox( IntPtr parent );
@@ -119,6 +125,12 @@ namespace MGUI
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_progressbar_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col1, uint col2, float max_value );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_scrollbar( IntPtr parent );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_create_scrollbar_ex( IntPtr parent, short x, short y, ushort w, ushort h, uint flags, uint col );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern IntPtr mgui_create_window( IntPtr parent );
@@ -270,6 +282,52 @@ namespace MGUI
 		public static extern void mgui_label_make_text_fit( IntPtr label );
 
 		// --------------------------------------------------
+		// Listbox functions
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_listbox_add_item( IntPtr listbox, string text );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_remove_item( IntPtr listbox, IntPtr item );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_clean( IntPtr listbox );
+
+		/*[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_set_sort_function( IntPtr listbox, mgui_listbox_sort_t func );*/
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_listbox_get_item_count( IntPtr listbox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern uint mgui_listbox_get_selected_count( IntPtr listbox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_listbox_get_first_item( IntPtr listbox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_listbox_get_next_item( IntPtr item );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_listbox_get_selected_item( IntPtr listbox );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern IntPtr mgui_listbox_get_next_selected_item( IntPtr item );
+
+		/*[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern string mgui_listbox_get_item_text( IntPtr item );*/
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_set_item_text( IntPtr item, string text );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_get_selected_colour( IntPtr listbox, out Math.Colour col );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_listbox_set_selected_colour( IntPtr listbox, ref Math.Colour col );
+		
+		// --------------------------------------------------
 		// Memobox functions
 		// --------------------------------------------------
 
@@ -310,7 +368,7 @@ namespace MGUI
 		public static extern void mgui_memobox_set_margin( IntPtr memobox, uint margin );
 
 		// --------------------------------------------------
-		// ProgressBar functions
+		// Progressbar functions
 		// --------------------------------------------------
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
@@ -344,14 +402,51 @@ namespace MGUI
 		public static extern void mgui_progressbar_set_thickness( IntPtr bar, byte thickess );
 
 		// --------------------------------------------------
+		// Scrollbar functions
+		// --------------------------------------------------
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_param( IntPtr scrollbar, float content, float step, float position, float size );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_scrollbar_get_content_size( IntPtr scrollbar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_content_size( IntPtr scrollbar, float size );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_scrollbar_get_step_size( IntPtr scrollbar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_step_size( IntPtr scrollbar, float size );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_scrollbar_get_bar_pos( IntPtr scrollbar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_bar_pos( IntPtr scrollbar, float position );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_scrollbar_get_bar_size( IntPtr scrollbar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_bar_size( IntPtr scrollbar, float size );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern float mgui_scrollbar_get_bg_shade( IntPtr scrollbar );
+
+		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
+		public static extern void mgui_scrollbar_set_bg_shade( IntPtr scrollbar, float shade );
+
+		// --------------------------------------------------
 		// Window functions
 		// --------------------------------------------------
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_window_get_title_col( IntPtr window, out Math.Colour col );
+		public static extern void mgui_window_get_title_colour( IntPtr window, out Math.Colour col );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
-		public static extern void mgui_window_set_title_col( IntPtr window, ref Math.Colour col );
+		public static extern void mgui_window_set_title_colour( IntPtr window, ref Math.Colour col );
 
 		[DllImport( "mgui.dll", CallingConvention = CallingConvention.Cdecl )]
 		public static extern void mgui_window_get_drag_offset( IntPtr window, out Math.VectorScreen pos );

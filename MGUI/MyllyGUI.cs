@@ -28,6 +28,7 @@ namespace MGUI
 
 			// Create a Null element which can be used as a parent
 			Element.Null = new Element();
+			ListboxItem.Null = new ListboxItem();
 		}
 
 		public static void Shutdown()

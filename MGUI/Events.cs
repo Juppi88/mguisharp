@@ -8,6 +8,8 @@ namespace MGUI
 {
 	public delegate void CursorEventHandler( object sender, CursorEventArgs e );
 	public delegate void ResizeEventHandler( object sender, ResizeEventArgs e );
+	public delegate void ListEventHandler( object sender, ListEventArgs e );
+	public delegate void ScrollEventHandler( object sender, ScrollEventArgs e );
 
 	public class CursorEventArgs : EventArgs
 	{
@@ -29,5 +31,26 @@ namespace MGUI
 		}
 
 		ushort Width, Height;
+	}
+
+	public class ListEventArgs : EventArgs
+	{
+		public ListEventArgs( ListboxItem item )
+		{
+			Selected = item;
+		}
+
+		ListboxItem Selected;
+	}
+
+	public class ScrollEventArgs : EventArgs
+	{
+		public ScrollEventArgs( float pos, float change )
+		{
+			Position = pos;
+			Change = change;
+		}
+
+		float Position, Change;
 	}
 }

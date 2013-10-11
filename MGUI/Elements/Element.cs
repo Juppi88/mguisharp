@@ -241,7 +241,6 @@ namespace MGUI
 		public event CursorEventHandler OnDrag;
 		public event EventHandler OnFocusEnter;
 		public event EventHandler OnFocusExit;
-		public event EventHandler OnInputTextChange;
 		public event EventHandler OnInputTextReturn;
 
 		// --------------------------------------------------

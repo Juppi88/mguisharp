@@ -22,8 +22,9 @@ namespace MGUI
 			FOCUS_ENTER,	/* Element receives focus */
 			FOCUS_EXIT,		/* Element loses focus */
 			CHECBOX_TOGGLE,	/* Checkbox is toggled */
-			INPUT_CHANGE,	/* User modifies the text of an input element */
 			INPUT_RETURN,	/* User presses return while an input element is focused */
+			LISTBOX_SELECT,	/* A listbox item was selected */
+			SCROLL,			/* Scrollable element was moved */
 			WINDOW_CLOSE,	/* Window is closed from the close button */
 			WINDOW_RESIZE,	/* Window is resized by the user */
 			FORCE_DWORD = 0x7FFFFFFF
@@ -40,6 +41,9 @@ namespace MGUI
 			[FieldOffset(12)] public uint		key;			// Pressed key
 			[FieldOffset(12)] public ushort		resizeWidth;	// Window width after resizing
 			[FieldOffset(14)] public ushort		resizeHeight;	// Window height after resizing
+			[FieldOffset(12)] public IntPtr		listItem;		// Pointer to listbox item
+			[FieldOffset(12)] public float		scrollPos;		// Scrollbar position
+			[FieldOffset(16)] public float		scrollChange;	// Scrollbar position change
 		}
 		
 		private static void ProcessEvents( ref GuiEventArgs args )
@@ -110,14 +114,6 @@ namespace MGUI
 					}
 					break;
 
-				case MGUI_EVENT.INPUT_CHANGE:
-					if ( OnInputTextChange != null )
-					{
-						EventArgs data = new EventArgs();
-						OnInputTextChange( this, data );
-					}
-					break;
-
 				case MGUI_EVENT.INPUT_RETURN:
 					if ( OnInputTextReturn != null )
 					{
@@ -174,6 +170,56 @@ namespace MGUI
 		}
 	}
 
+	// --------------------------------------------------
+	// Listbox events
+	// --------------------------------------------------
+
+	public partial class Listbox : Element
+	{
+		protected override void HandleEvent( ref GuiEventArgs args )
+		{
+			base.HandleEvent( ref args );
+
+			switch ( args.type )
+			{
+				case MGUI_EVENT.LISTBOX_SELECT:
+					if ( OnItemSelect != null )
+					{
+						ListboxItem item = GetItemFromPointer( args.listItem );
+						if ( item != ListboxItem.Null )
+						{
+							ListEventArgs data = new ListEventArgs( item );
+							OnItemSelect( this, data );
+						}
+					}
+					break;
+			}
+		}
+	}
+
+	// --------------------------------------------------
+	// Scrollbar events
+	// --------------------------------------------------
+
+	public partial class Scrollbar : Element
+	{
+		protected override void HandleEvent( ref GuiEventArgs args )
+		{
+			base.HandleEvent( ref args );
+
+			switch ( args.type )
+			{
+				case MGUI_EVENT.SCROLL:
+					if ( OnScroll != null )
+					{
+						ScrollEventArgs data = new ScrollEventArgs( args.scrollPos, args.scrollChange );
+						OnScroll( this, data );
+					}
+					break;
+			}
+		}
+	}
+	
 	// --------------------------------------------------
 	// Window events
 	// --------------------------------------------------

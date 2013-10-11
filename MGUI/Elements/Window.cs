@@ -21,8 +21,8 @@ namespace MGUI
 
 		public Colour TitlebarColour
 		{
-			get { Colour col; API.mgui_window_get_title_col( Handle, out col ); return col; }
-			set { API.mgui_window_set_title_col( Handle, ref value ); }
+			get { Colour col; API.mgui_window_get_title_colour( Handle, out col ); return col; }
+			set { API.mgui_window_set_title_colour( Handle, ref value ); }
 		}
 
 		public VectorScreen DragOffset
