@@ -55,6 +55,16 @@ namespace MGUI
 		}
 
 		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool Horizontal
+		{
+			get { return GetFlag( ELEMFLAG.SCROLLBAR_HORIZ ); }
+			set { SetFlag( ELEMFLAG.SCROLLBAR_HORIZ, value ); }
+		}
+
+		// --------------------------------------------------
 		// Events
 		// --------------------------------------------------
 

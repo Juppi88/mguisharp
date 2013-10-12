@@ -19,17 +19,19 @@ namespace MGUI
 			Handle = API.mgui_create_checkbox_ex( parentElement.Handle, absPos.x, absPos.y, (uint)flags, col.AsHex() );
 		}
 
+		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
 		public bool Selected
 		{
-			get { return ( ( API.mgui_get_flags( Handle ) & (uint)ELEMFLAG.CHECKBOX_CHECKED ) != 0 ); }
-			set
-			{
-				if ( value )
-					API.mgui_add_flags( Handle, (uint)ELEMFLAG.CHECKBOX_CHECKED );
-				else
-					API.mgui_remove_flags( Handle, (uint)ELEMFLAG.CHECKBOX_CHECKED );
-			}
+			get { return GetFlag( ELEMFLAG.CHECKBOX_CHECKED ); }
+			set { SetFlag( ELEMFLAG.CHECKBOX_CHECKED, value ); }
 		}
+
+		// --------------------------------------------------
+		// Events
+		// --------------------------------------------------
 
 		public event EventHandler OnToggle;
 	}

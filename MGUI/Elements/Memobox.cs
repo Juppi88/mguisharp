@@ -56,5 +56,15 @@ namespace MGUI
 			get { return API.mgui_memobox_get_history( Handle ); }
 			set { API.mgui_memobox_set_history( Handle, value ); }
 		}
+
+		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool TopBottom
+		{
+			get { return GetFlag( ELEMFLAG.MEMOBOX_TOPBOTTOM ); }
+			set { SetFlag( ELEMFLAG.MEMOBOX_TOPBOTTOM, value ); }
+		}
 	}
 }

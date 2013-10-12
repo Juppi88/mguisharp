@@ -84,6 +84,32 @@ namespace MGUI
 			return items[pointer];
 		}
 
+		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool Scrollable
+		{
+			get { return GetFlag( ELEMFLAG.SCROLLABLE ); }
+			set { SetFlag( ELEMFLAG.SCROLLABLE, value ); }
+		}
+
+		public bool MultiSelect
+		{
+			get { return GetFlag( ELEMFLAG.LISTBOX_MULTISELECT ); }
+			set { SetFlag( ELEMFLAG.LISTBOX_MULTISELECT, value ); }
+		}
+
+		public bool AutoSort
+		{
+			get { return GetFlag( ELEMFLAG.LISTBOX_SORTING ); }
+			set { SetFlag( ELEMFLAG.LISTBOX_SORTING, value ); }
+		}
+
+		// --------------------------------------------------
+		// Storage
+		// --------------------------------------------------
+
 		// A list of items and their pointers on this listbox.
 		private Dictionary<IntPtr, ListboxItem> items;
 

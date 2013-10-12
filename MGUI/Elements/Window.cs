@@ -31,6 +31,28 @@ namespace MGUI
 		}
 
 		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool Titlebar
+		{
+			get { return GetFlag( ELEMFLAG.WINDOW_TITLEBAR ); }
+			set { SetFlag( ELEMFLAG.WINDOW_TITLEBAR, value ); }
+		}
+
+		public bool CloseButton
+		{
+			get { return GetFlag( ELEMFLAG.WINDOW_CLOSEBTN ); }
+			set { SetFlag( ELEMFLAG.WINDOW_CLOSEBTN, value ); }
+		}
+
+		public bool Resizable
+		{
+			get { return GetFlag( ELEMFLAG.WINDOW_RESIZABLE ); }
+			set { SetFlag( ELEMFLAG.WINDOW_RESIZABLE, value ); }
+		}
+
+		// --------------------------------------------------
 		// Events
 		// --------------------------------------------------
 

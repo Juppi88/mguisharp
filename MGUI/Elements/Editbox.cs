@@ -39,5 +39,15 @@ namespace MGUI
 		{
 			API.mgui_editbox_select_text( Handle, begin, end );
 		}
+
+		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool MaskInput
+		{
+			get { return GetFlag( ELEMFLAG.EDITBOX_MASKINPUT ); }
+			set { SetFlag( ELEMFLAG.EDITBOX_MASKINPUT, value ); }
+		}
 	}
 }

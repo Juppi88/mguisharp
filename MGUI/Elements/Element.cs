@@ -212,7 +212,7 @@ namespace MGUI
 		}
 
 		// --------------------------------------------------
-		// Flags and special properties
+		// Element flags
 		// --------------------------------------------------
 
 		public uint Flags
@@ -228,6 +228,137 @@ namespace MGUI
 		public void RemoveFlags( ELEMFLAG flags )
 		{
 			API.mgui_remove_flags( elementHandle, (uint)flags );
+		}
+
+		public bool GetFlag( ELEMFLAG flag )
+		{
+			return ( API.mgui_get_flags( elementHandle ) & (uint)flag ) != 0;
+		}
+
+		public void SetFlag( ELEMFLAG flag, bool toggle )
+		{
+			if ( toggle )
+				API.mgui_add_flags( elementHandle, (uint)flag );
+			else
+				API.mgui_remove_flags( elementHandle, (uint)flag );
+		}
+
+		// --------------------------------------------------
+		// Element flag properties
+		// --------------------------------------------------
+
+		public bool Visible
+		{
+			get { return GetFlag( ELEMFLAG.VISIBLE ); }
+			set { SetFlag( ELEMFLAG.VISIBLE, value ); }
+		}
+
+		public bool Disabled
+		{
+			get { return GetFlag( ELEMFLAG.DISABLED ); }
+			set { SetFlag( ELEMFLAG.DISABLED, value ); }
+		}
+
+		public bool Background
+		{
+			get { return GetFlag( ELEMFLAG.BACKGROUND ); }
+			set { SetFlag( ELEMFLAG.BACKGROUND, value ); }
+		}
+
+		public bool Border
+		{
+			get { return GetFlag( ELEMFLAG.BORDER ); }
+			set { SetFlag( ELEMFLAG.BORDER, value ); }
+		}
+
+		public bool Shadow
+		{
+			get { return GetFlag( ELEMFLAG.SHADOW ); }
+			set { SetFlag( ELEMFLAG.SHADOW, value ); }
+		}
+
+		public bool Draggable
+		{
+			get { return GetFlag( ELEMFLAG.DRAGGABLE ); }
+			set { SetFlag( ELEMFLAG.DRAGGABLE, value ); }
+		}
+
+		public bool Clip
+		{
+			get { return GetFlag( ELEMFLAG.CLIP ); }
+			set { SetFlag( ELEMFLAG.CLIP, value ); }
+		}
+
+		public bool WordWrap
+		{
+			get { return GetFlag( ELEMFLAG.WRAP ); }
+			set { SetFlag( ELEMFLAG.WRAP, value ); }
+		}
+
+		public bool AutoResize
+		{
+			get { return GetFlag( ELEMFLAG.AUTO_RESIZE ); }
+			set { SetFlag( ELEMFLAG.AUTO_RESIZE, value ); }
+		}
+
+		public bool InheritAlpha
+		{
+			get { return GetFlag( ELEMFLAG.INHERIT_ALPHA ); }
+			set { SetFlag( ELEMFLAG.INHERIT_ALPHA, value ); }
+		}
+
+		public bool Animation
+		{
+			get { return GetFlag( ELEMFLAG.ANIMATION ); }
+			set { SetFlag( ELEMFLAG.ANIMATION, value ); }
+		}
+
+		public bool TabStop
+		{
+			get { return GetFlag( ELEMFLAG.TABSTOP ); }
+			set { SetFlag( ELEMFLAG.TABSTOP, value ); }
+		}
+
+		public bool MouseControl
+		{
+			get { return GetFlag( ELEMFLAG.MOUSECTRL ); }
+			set { SetFlag( ELEMFLAG.MOUSECTRL, value ); }
+		}
+
+		public bool KeyboardControl
+		{
+			get { return GetFlag( ELEMFLAG.KBCTRL ); }
+			set { SetFlag( ELEMFLAG.KBCTRL, value ); }
+		}
+
+		public bool TextShadow
+		{
+			get { return GetFlag( ELEMFLAG.TEXT_SHADOW ); }
+			set { SetFlag( ELEMFLAG.TEXT_SHADOW, value ); }
+		}
+
+		public bool TextTags
+		{
+			get { return GetFlag( ELEMFLAG.TEXT_TAGS ); }
+			set { SetFlag( ELEMFLAG.TEXT_TAGS, value ); }
+		}
+
+		public bool DepthTest
+		{
+			get { return GetFlag( ELEMFLAG.DEPTH_TEST ); }
+			set { SetFlag( ELEMFLAG.DEPTH_TEST, value ); }
+		}
+
+		public bool Is3D
+		{
+			get { return GetFlag( ELEMFLAG.DRAW_3D ); }
+			set { SetFlag( ELEMFLAG.DRAW_3D, value ); }
+		}
+
+		public bool UseCacheTexture
+		{
+			get { return GetFlag( ELEMFLAG.CACHE_TEXTURE ); }
+			set { SetFlag( ELEMFLAG.CACHE_TEXTURE, value ); }
 		}
 
 		// --------------------------------------------------
